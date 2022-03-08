@@ -7,21 +7,21 @@ class UserLocation {
 
   public coordinates?: Coordinates;
 
-  public async requestCoordinates() {
+  public async request() {
     const status = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
 
     if (status === 'granted') {
-      this.getUserLocation();
+      this.get();
 
       return;
     }
 
     await this.requestLocationPermissions();
 
-    this.requestCoordinates();
+    this.request();
   }
 
-  private getUserLocation() {
+  public get() {
     Geolocation.getCurrentPosition(
       info => {
         this.coordinates = {
@@ -36,7 +36,7 @@ class UserLocation {
             onPress: () => console.log('Cancel Pressed'),
             style: 'cancel',
           },
-          { text: 'Try Again', onPress: () => this.getUserLocation() },
+          { text: 'Try Again', onPress: () => this.get() },
         ]);
       },
       { timeout: 20000 },

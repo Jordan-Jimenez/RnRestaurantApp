@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { StyleService, Text, useStyleSheet } from '@ui-kitten/components';
 
 import DeliveryOrderIcon from '../../components/@ui/icons/DeliveryOrderIcon';
@@ -37,9 +38,21 @@ const themedStyles = StyleService.create({
 const NewOrderTypeButtons = () => {
   const styles = useStyleSheet(themedStyles);
 
+  const navigation = useNavigation();
+
+  const navigateForPickup = () => {
+    //@ts-ignore
+    navigation.navigate('Order Scheduling', { orderType: 'pickup' });
+  };
+
+  const navigateForDelivery = () => {
+    //@ts-ignore
+    navigation.navigate('Order Scheduling', { orderType: 'delivery' });
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity onPress={navigateForPickup} style={styles.button}>
         <PickUpOrderIcon />
 
         <Text style={styles.text} category="h5">
@@ -53,9 +66,8 @@ const NewOrderTypeButtons = () => {
 
       <View style={styles.lineBreak} />
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity onPress={navigateForDelivery} style={styles.button}>
         <DeliveryOrderIcon />
-
         <Text style={styles.text} category="h5">
           Delivery
         </Text>

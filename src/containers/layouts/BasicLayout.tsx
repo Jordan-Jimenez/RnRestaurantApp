@@ -6,19 +6,39 @@ import {
   StyleService,
   useStyleSheet,
 } from '@ui-kitten/components/theme/style/style.service';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-interface IBasicLayoutProps {}
+interface IBasicLayoutProps {
+  actionButton?: JSX.Element;
+  modal?: boolean;
+}
 
-const BasicLayout: FC<IBasicLayoutProps> = ({ children }) => {
+const BasicLayout: FC<IBasicLayoutProps> = ({
+  children,
+  actionButton,
+  modal = false,
+}) => {
   const classes = useStyleSheet(themedStyles);
 
   return (
     <Layout>
-      <ScrollView
-        style={classes.scrollView}
-        showsVerticalScrollIndicator={false}>
-        <View style={classes.contentContainer}>{children}</View>
-      </ScrollView>
+      {!modal ? (
+        <SafeAreaView>
+          <ScrollView
+            style={classes.scrollView}
+            showsVerticalScrollIndicator={false}>
+            <View style={classes.contentContainer}>{children}</View>
+          </ScrollView>
+        </SafeAreaView>
+      ) : (
+        <ScrollView
+          style={classes.scrollView}
+          showsVerticalScrollIndicator={false}>
+          <View style={classes.contentContainer}>{children}</View>
+        </ScrollView>
+      )}
+
+      {actionButton}
     </Layout>
   );
 };
@@ -26,7 +46,6 @@ const BasicLayout: FC<IBasicLayoutProps> = ({ children }) => {
 const themedStyles = StyleService.create({
   scrollView: {
     height: '100%',
-    paddingTop: 50,
   },
   contentContainer: {
     minHeight: '100%',

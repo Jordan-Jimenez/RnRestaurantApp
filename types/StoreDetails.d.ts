@@ -1,4 +1,5 @@
-interface StoreLocation {
+interface StoreDetails {
+  id?: string;
   streetAddress?: string;
   city?: string;
   state?: string;
@@ -8,4 +9,5 @@ interface StoreLocation {
     longitude?: number;
   };
   distance?: number;
+  businessHours?: OperationTimeZone[];
 }

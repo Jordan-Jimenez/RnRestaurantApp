@@ -1,11 +1,13 @@
 import React from 'react';
 
 import { TouchableOpacity, View } from 'react-native';
+import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
 import { StyleService, Text, useStyleSheet } from '@ui-kitten/components';
 
 import DeliveryOrderIcon from '../../components/@ui/icons/DeliveryOrderIcon';
 import PickUpOrderIcon from '../../components/@ui/icons/PickupOrderIcon';
+import App from '../../stores/App';
 
 const themedStyles = StyleService.create({
   container: {
@@ -40,19 +42,31 @@ const NewOrderTypeButtons = () => {
 
   const navigation = useNavigation();
 
-  const navigateForPickup = () => {
-    //@ts-ignore
-    navigation.navigate('Order Scheduling', { orderType: 'pickup' });
-  };
+  const navigateForType = (type: 'delivery' | 'pickup') => {
+    if (!App.ongoingOrder) {
+      App.startNewOngoingOrder();
+    }
 
-  const navigateForDelivery = () => {
+    App.ongoingOrder?.setFulfillmentType(type);
+
+    if (App.ongoingOrder?.store?.storeDetails.id) {
+      //@ts-ignore
+      navigation.navigate('New Order');
+
+      return;
+    }
+
     //@ts-ignore
-    navigation.navigate('Order Scheduling', { orderType: 'delivery' });
+    navigation.navigate('StoreSelect', {
+      pageToNavigate: 'New Order',
+    });
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={navigateForPickup} style={styles.button}>
+      <TouchableOpacity
+        onPress={() => navigateForType('pickup')}
+        style={styles.button}>
         <PickUpOrderIcon />
 
         <Text style={styles.text} category="h5">
@@ -66,7 +80,9 @@ const NewOrderTypeButtons = () => {
 
       <View style={styles.lineBreak} />
 
-      <TouchableOpacity onPress={navigateForDelivery} style={styles.button}>
+      <TouchableOpacity
+        onPress={() => navigateForType('delivery')}
+        style={styles.button}>
         <DeliveryOrderIcon />
         <Text style={styles.text} category="h5">
           Delivery
@@ -80,4 +96,4 @@ const NewOrderTypeButtons = () => {
   );
 };
 
-export default NewOrderTypeButtons;
+export default observer(NewOrderTypeButtons);

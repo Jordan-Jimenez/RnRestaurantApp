@@ -2,14 +2,14 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import AuthenticatedScreens from './screens';
+import screens from './screens';
 
 const Stack = createNativeStackNavigator();
 
 const MainStack = () => {
   return (
     <Stack.Navigator>
-      {AuthenticatedScreens.map(item => (
+      {screens.map(item => (
         <Stack.Screen
           name={item.name}
           component={item.component}

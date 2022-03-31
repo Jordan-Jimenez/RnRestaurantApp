@@ -11,10 +11,14 @@ import Store from '../../stores/Store';
 import OrderTimeSelectorContextProvider from '../providers/OrderTimeSelectorContextProvider';
 
 interface IPickUpTimeSelectorProps {
-  store: Store;
+  store?: Store;
+  loading?: boolean;
 }
 
-const PickupTimeSelector: FC<IPickUpTimeSelectorProps> = ({ store }) => {
+const PickupTimeSelector: FC<IPickUpTimeSelectorProps> = ({
+  store,
+  loading,
+}) => {
   const [open, setOpen] = useState(false);
 
   const openModal = () => {
@@ -24,17 +28,19 @@ const PickupTimeSelector: FC<IPickUpTimeSelectorProps> = ({ store }) => {
   return (
     <>
       <ClickableInput
+        loaderWidth={175}
         action={openModal}
         icon={<ClockIcon />}
         label="When"
+        loading={loading}
         value={
           formatOrderTimeSlot(App.ongoingOrder?.fulfillmentTimeSlot, true) ||
-          formatOrderTimeSlot(store.nextEstimatedPickUpTimeInterval, true) ||
+          formatOrderTimeSlot(store?.nextEstimatedPickUpTimeInterval, true) ||
           'Currently Unavailable'
         }
       />
 
-      {open && (
+      {open && store && (
         <OrderTimeSelectorContextProvider store={store}>
           <DateTimeSelector open={open} setOpen={openModal} />
         </OrderTimeSelectorContextProvider>

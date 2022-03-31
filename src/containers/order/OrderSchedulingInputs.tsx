@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import { observer } from 'mobx-react-lite';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { StyleService, useStyleSheet } from '@ui-kitten/components';
 
 import Box from '../../components/@ui/Box';
 import ClickableInput from '../../components/@ui/ClickableInput';
@@ -11,6 +12,10 @@ import OrderLocationIcon from '../../components/@ui/icons/OrderLocationIcon';
 import App from '../../stores/App';
 import PickupTimeSelector from './PickupTimeSelector';
 import Store from '../../stores/Store';
+
+const themedStyles = StyleService.create({
+  container: { paddingHorizontal: 10, paddingVertical: 20, width: '100%' },
+});
 
 const OrderSchedulingInputs = () => {
   const { data, isFetching, refetch } = useQuery(
@@ -34,28 +39,24 @@ const OrderSchedulingInputs = () => {
     navigation.navigate('StoreSelect');
   };
 
+  const styles = useStyleSheet(themedStyles);
+
   return (
     <>
-      {/* show when loading */}
+      <View style={styles.container}>
+        <PickupTimeSelector loading={isFetching} store={store!} />
 
-      {/* should alert that it couldnt find store */}
-      {!isFetching && !data && <></>}
+        <Box mt={10} />
 
-      {/* show when store data is loaded */}
-      {!isFetching && data && (
-        <View style={{ padding: 20 }}>
-          <PickupTimeSelector store={store!} />
-
-          <Box mt={10} />
-
-          <ClickableInput
-            action={openLocationsList}
-            icon={<OrderLocationIcon />}
-            label="Where"
-            value={App.ongoingOrder?.store?.storeDetails.streetAddress}
-          />
-        </View>
-      )}
+        <ClickableInput
+          loaderWidth={175}
+          loading={isFetching}
+          action={openLocationsList}
+          icon={<OrderLocationIcon />}
+          label="Where"
+          value={App.ongoingOrder?.store?.storeDetails.streetAddress}
+        />
+      </View>
     </>
   );
 };

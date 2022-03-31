@@ -28,7 +28,7 @@ const OrderLocationSelect = ({}: StoreSelectProps) => {
   }, []);
 
   return (
-    <BasicLayout modal>
+    <BasicLayout noSafeArea>
       {/* button to reprompt the user to enable location services if they have not already */}
 
       <StoreLocationList />

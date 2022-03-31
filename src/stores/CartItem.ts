@@ -1,7 +1,7 @@
 import { action, makeAutoObservable, observable } from 'mobx';
 
 export default class CartItem {
-  constructor(public item?: CatalogItem) {
+  constructor(public item?: MenuItem) {
     makeAutoObservable(this);
   }
   @observable
@@ -22,7 +22,7 @@ export default class CartItem {
   }
 
   @action
-  public setItem(item?: CatalogItem) {
+  public setItem(item?: MenuItem) {
     this.item = item;
   }
 

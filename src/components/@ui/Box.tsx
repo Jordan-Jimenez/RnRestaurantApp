@@ -16,11 +16,14 @@ interface IStyleProps {
   pr?: number;
   pl?: number;
   alignContent: FlexAlignType;
+  borderTop?: boolean;
+  borderBottom?: boolean;
+  width: '100%' | 'auto';
 }
 
 const themedStyles = StyleService.create((props: IStyleProps) => ({
   box: {
-    width: '100%',
+    width: props.width,
     display: 'flex',
     flexDirection: 'column',
     alignItems: props.alignContent,
@@ -32,6 +35,10 @@ const themedStyles = StyleService.create((props: IStyleProps) => ({
     paddingTop: props.pt ? props.pt : props.p,
     paddingLeft: props.pl ? props.pl : props.p,
     paddingBottom: props.pb ? props.pb : props.p,
+    borderBottomWidth: props.borderBottom ? 1 : 0,
+    borderBottomColor: 'color-basic-default',
+    borderTopWidth: props.borderTop ? 1 : 0,
+    borderTopColor: 'color-basic-default',
   },
 }));
 
@@ -47,6 +54,9 @@ interface IBoxProps {
   pr?: number;
   pl?: number;
   alignContent?: FlexAlignType;
+  borderTop?: boolean;
+  borderBottom?: boolean;
+  width?: '100%' | 'auto';
 }
 
 const Box: FC<IBoxProps> = ({
@@ -62,10 +72,28 @@ const Box: FC<IBoxProps> = ({
   pl,
   children,
   alignContent = 'flex-start',
+  borderTop = false,
+  borderBottom = false,
+  width = '100%',
 }) => {
   const styles = useStyleSheet(
     //@ts-ignore
-    themedStyles({ m, mt, mb, ml, mr, p, pb, pt, pr, pl, alignContent }),
+    themedStyles({
+      m,
+      mt,
+      mb,
+      ml,
+      mr,
+      p,
+      pb,
+      pt,
+      pr,
+      pl,
+      alignContent,
+      borderTop,
+      borderBottom,
+      width,
+    }),
   );
   return <View style={styles.box}>{children}</View>;
 };

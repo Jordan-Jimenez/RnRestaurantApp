@@ -9,7 +9,7 @@ import Box from '../../components/@ui/Box';
 const SelectLocationHeader = () => {
   return (
     <Layout>
-      <Box pt={30} pb={20}>
+      <Box pt={30} pb={30} borderBottom>
         <BasicTitleHeader title="Select pickup location" />
       </Box>
     </Layout>

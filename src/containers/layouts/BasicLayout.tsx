@@ -10,31 +10,32 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface IBasicLayoutProps {
   actionButton?: JSX.Element;
-  modal?: boolean;
+  noSafeArea?: boolean;
 }
 
 const BasicLayout: FC<IBasicLayoutProps> = ({
   children,
   actionButton,
-  modal = false,
+  noSafeArea = false,
 }) => {
   const classes = useStyleSheet(themedStyles);
 
   return (
     <Layout>
-      {!modal ? (
-        <SafeAreaView>
-          <ScrollView
-            style={classes.scrollView}
-            showsVerticalScrollIndicator={false}>
-            <View style={classes.contentContainer}>{children}</View>
-          </ScrollView>
-        </SafeAreaView>
-      ) : (
+      {!noSafeArea ? (
         <ScrollView
           style={classes.scrollView}
           showsVerticalScrollIndicator={false}>
-          <View style={classes.contentContainer}>{children}</View>
+          <SafeAreaView>
+            <View style={classes.contentContainer}>{children}</View>
+          </SafeAreaView>
+        </ScrollView>
+      ) : (
+        <ScrollView
+          style={classes.scrollView}
+          showsVerticalScrollIndicator={false}
+          stickyHeaderIndices={[2]}>
+          {children}
         </ScrollView>
       )}
 

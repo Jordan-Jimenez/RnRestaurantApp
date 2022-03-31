@@ -9,12 +9,12 @@ import IconButton from '../../components/@ui/IconButton';
 import DeliveryOrderIcon from '../../components/@ui/icons/DeliveryOrderIcon';
 import PickUpOrderIcon from '../../components/@ui/icons/PickupOrderIcon';
 import SwitchOrderTypeIcon from '../../components/@ui/icons/SwitchOrderTypeIcon';
+import Box from '../../components/@ui/Box';
 
 const themedStyles = StyleService.create({
   view: {
+    width: '100%',
     backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E5E5',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -43,23 +43,25 @@ const OrderSchedlingHeader: FC<IOrderSchedlingHeaderProps> = () => {
   };
 
   return (
-    <View style={styles.view}>
-      <View style={styles.flex}>
-        {ongoingOrderType === 'pickup' ? (
-          <PickUpOrderIcon size="small" />
-        ) : ongoingOrderType === 'delivery' ? (
-          <DeliveryOrderIcon size="small" />
-        ) : (
-          <></>
-        )}
-        <Text style={styles.title} category="h1">
-          {ongoingOrderType[0].toUpperCase() + ongoingOrderType.substring(1)}{' '}
-          Order
-        </Text>
-      </View>
+    <Box borderBottom>
+      <View style={styles.view}>
+        <View style={styles.flex}>
+          {ongoingOrderType === 'pickup' ? (
+            <PickUpOrderIcon size="small" />
+          ) : ongoingOrderType === 'delivery' ? (
+            <DeliveryOrderIcon size="small" />
+          ) : (
+            <></>
+          )}
+          <Text style={styles.title} category="h1">
+            {ongoingOrderType[0].toUpperCase() + ongoingOrderType.substring(1)}{' '}
+            Order
+          </Text>
+        </View>
 
-      <IconButton icon={<SwitchOrderTypeIcon />} onPress={switchOrderType} />
-    </View>
+        <IconButton icon={<SwitchOrderTypeIcon />} onPress={switchOrderType} />
+      </View>
+    </Box>
   );
 };
 

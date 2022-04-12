@@ -3,4 +3,5 @@ interface ItemVariation {
   name?: string;
   price?: string;
   ordinal?: number;
+  options?: { itemOptionId: string; itemOptionValueId: string }[];
 }

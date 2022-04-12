@@ -11,6 +11,7 @@ import { View } from 'react-native';
 interface IStyleProps {
   absolute: boolean;
   height: number;
+  secondaryTitle: boolean;
 }
 
 const themedStyles = StyleService.create((props: IStyleProps) => ({
@@ -22,7 +23,15 @@ const themedStyles = StyleService.create((props: IStyleProps) => ({
     bottom: 0,
     width: '100%',
   },
-  button: { height: props.height, borderColor: 'transparent' },
+  button: {
+    height: props.height,
+    borderColor: 'transparent',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: props.secondaryTitle ? 'space-between' : 'center',
+    paddingHorizontal: 30,
+  },
 }));
 
 interface IActionButtonProps {
@@ -36,20 +45,29 @@ interface IActionButtonProps {
 const ActionButton: FC<IActionButtonProps> = ({
   action,
   title,
+  secondaryTitle,
   absolute = true,
   height = 100,
 }) => {
-  //@ts-ignore
-  const styles = useStyleSheet(themedStyles({ absolute, height }));
+  const styles = useStyleSheet(
+    //@ts-ignore
+    themedStyles({ absolute, height, secondaryTitle }),
+  );
 
   return (
     <View style={styles.container}>
       <Button onPress={action} style={styles.button} appearance="filled">
-        <View>
+        <>
           <Text style={styles.text} category="h4">
             {title}
           </Text>
-        </View>
+
+          {secondaryTitle && (
+            <Text style={styles.text} category="h5">
+              {secondaryTitle}
+            </Text>
+          )}
+        </>
       </Button>
     </View>
   );

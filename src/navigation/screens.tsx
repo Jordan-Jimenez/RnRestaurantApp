@@ -6,10 +6,10 @@ import Dashboard from '../screens/Dashboard';
 import NewOrderScreen from '../screens/NewOrderScreen';
 import StoreSelect from '../screens/StoreSelect';
 import SelectLocationHeader from '../containers/headers/SelectLocationHeader';
+import DetailedMenuItem from '../screens/DetailedMenuItem';
 
 export default [
   { name: 'Dashboard', component: Dashboard, options: { headerShown: false } },
-
   {
     name: 'New Order',
     component: NewOrderScreen,
@@ -19,13 +19,20 @@ export default [
       headerTintColor: '#000',
     } as NativeStackNavigationOptions,
   },
-
   {
     name: 'StoreSelect',
     component: StoreSelect,
     options: {
       presentation: 'modal',
       header: () => <SelectLocationHeader />,
+    } as NativeStackNavigationOptions,
+  },
+  {
+    name: 'DetailedMenuItem',
+    component: DetailedMenuItem,
+    options: {
+      presentation: 'modal',
+      headerShown: false,
     } as NativeStackNavigationOptions,
   },
 ];

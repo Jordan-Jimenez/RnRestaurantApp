@@ -14,7 +14,10 @@ import Box from '../components/@ui/Box';
 const NewOrderScreen = () => {
   return (
     <MenuContextProvider>
-      <Layout noSafeArea actionButton={<ViewCartButton />}>
+      <Layout
+        noSafeArea
+        stickyHeaderIndicies={[2]}
+        actionButton={<ViewCartButton />}>
         <OrderSchedlingHeader />
 
         <Box borderBottom>

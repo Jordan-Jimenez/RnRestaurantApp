@@ -22,7 +22,7 @@ const Dashboard = () => {
   const styles = useStyleSheet(themedStyles);
 
   return (
-    <BasicLayout>
+    <BasicLayout noPadding>
       <View style={styles.container}>
         <Header />
 

@@ -63,9 +63,11 @@ const StoreLocation: FC<IStoreLocationProps> = ({ store }) => {
 
     App.ongoingOrder?.setStore(store);
 
-    App.ongoingOrder?.setFulFillmentTimeSlot(
-      store.nextEstimatedPickUpTimeInterval,
-    );
+    if (!App.ongoingOrder?.fulfillmentTimeSlot) {
+      App.ongoingOrder?.setFulFillmentTimeSlot(
+        store.nextEstimatedPickUpTimeInterval,
+      );
+    }
 
     if (pageToNavigate) {
       navigation.dispatch(StackActions.replace(pageToNavigate));

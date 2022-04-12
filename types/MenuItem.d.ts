@@ -1,5 +1,5 @@
 interface MenuItem {
-  id?: string;
+  id: string;
   name?: string;
   description?: string;
   categoryId?: string;
@@ -7,4 +7,5 @@ interface MenuItem {
   price?: string;
   imageId?: string;
   variations?: ItemVariation[];
+  optionIds?: string[];
 }

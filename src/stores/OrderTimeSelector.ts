@@ -14,7 +14,6 @@ export default class OrderTimeSelector {
 
   @action
   public setDay(day: 'today' | 'tomorrow') {
-    console.log('received', day);
     this.selectedDay = day;
   }
   @observable

@@ -62,7 +62,7 @@ export default class Order {
   public get subtotal() {
     let subtotal: number = 0;
 
-    this.cart.forEach(item => (subtotal += parseInt(item.item!.price!, 10)));
+    this.cart.forEach(item => (subtotal += parseFloat(item.subtotal)));
 
     return subtotal;
   }

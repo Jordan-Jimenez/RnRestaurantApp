@@ -18,7 +18,8 @@ interface IStyleProps {
   alignContent: FlexAlignType;
   borderTop?: boolean;
   borderBottom?: boolean;
-  width: '100%' | 'auto';
+  width: '100%' | 'auto' | number;
+  overflow: 'visible' | 'hidden' | 'scroll' | undefined;
 }
 
 const themedStyles = StyleService.create((props: IStyleProps) => ({
@@ -39,6 +40,7 @@ const themedStyles = StyleService.create((props: IStyleProps) => ({
     borderBottomColor: 'color-basic-default',
     borderTopWidth: props.borderTop ? 1 : 0,
     borderTopColor: 'color-basic-default',
+    overflow: props.overflow,
   },
 }));
 
@@ -56,7 +58,8 @@ interface IBoxProps {
   alignContent?: FlexAlignType;
   borderTop?: boolean;
   borderBottom?: boolean;
-  width?: '100%' | 'auto';
+  width?: '100%' | 'auto' | number;
+  overflow?: 'visible' | 'hidden' | 'scroll' | undefined;
 }
 
 const Box: FC<IBoxProps> = ({
@@ -75,6 +78,7 @@ const Box: FC<IBoxProps> = ({
   borderTop = false,
   borderBottom = false,
   width = '100%',
+  overflow,
 }) => {
   const styles = useStyleSheet(
     //@ts-ignore
@@ -93,6 +97,7 @@ const Box: FC<IBoxProps> = ({
       borderTop,
       borderBottom,
       width,
+      overflow,
     }),
   );
   return <View style={styles.box}>{children}</View>;

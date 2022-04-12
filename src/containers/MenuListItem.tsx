@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 
-import { View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { StyleService, useStyleSheet } from '@ui-kitten/components';
+import { useNavigation } from '@react-navigation/native';
 
 import MenuItemImage from './MenuItemImage';
 import Box from '../components/@ui/Box';
@@ -23,9 +24,16 @@ interface IMenuListItemProps {
 const MenuListItem: FC<IMenuListItemProps> = ({ item, loading }) => {
   const styles = useStyleSheet(themedStyles);
 
+  const navigation = useNavigation();
+
+  const navigate = () => {
+    //@ts-ignore
+    navigation.navigate('DetailedMenuItem', { itemId: item?.id });
+  };
+
   return (
     <Box pl={20} pr={20}>
-      <View style={styles.container}>
+      <TouchableOpacity onPress={navigate} style={styles.container}>
         <MenuItemImage loading={loading} imageId={item?.imageId} />
 
         <Box ml={20}>
@@ -33,7 +41,7 @@ const MenuListItem: FC<IMenuListItemProps> = ({ item, loading }) => {
             {item?.name}
           </LoadingText>
         </Box>
-      </View>
+      </TouchableOpacity>
     </Box>
   );
 };

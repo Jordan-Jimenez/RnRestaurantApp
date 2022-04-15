@@ -20,18 +20,20 @@ const ViewCartButton = () => {
       );
     }
 
-    navigation.navigate('');
+    //@ts-ignore
+    navigation.navigate('ReviewOrder');
   };
 
   return (
-    // convert subtotal to dollar format string
-    <ActionButton
-      title="View Cart"
-      secondaryTitle={formatDollar(
-        App.ongoingOrder?.subtotal.toString() || '0',
+    <>
+      {App.ongoingOrder?.cart && App.ongoingOrder?.cart.length > 0 && (
+        <ActionButton
+          title="View Cart"
+          secondaryTitle={formatDollar(App.ongoingOrder?.subtotal)}
+          action={viewCart}
+        />
       )}
-      action={viewCart}
-    />
+    </>
   );
 };
 

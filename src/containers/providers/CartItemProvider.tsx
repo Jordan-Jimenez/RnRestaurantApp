@@ -18,10 +18,17 @@ export const useCartItemContext = () => {
 
 interface ProviderProps {
   item?: MenuItem;
+  cartItemToEdit?: CartItem;
 }
 
-const CartItemContextProvider: FC<ProviderProps> = ({ item, children }) => {
-  const viewModel = useMemo(() => new CartItem(item), [item]);
+const CartItemContextProvider: FC<ProviderProps> = ({
+  item,
+  children,
+  cartItemToEdit,
+}) => {
+  const viewModel = useMemo(() => {
+    return new CartItem(item, cartItemToEdit);
+  }, [item, cartItemToEdit]);
 
   return (
     <CartItemContext.Provider value={viewModel}>

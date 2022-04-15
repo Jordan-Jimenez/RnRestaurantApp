@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
@@ -8,12 +8,20 @@ import formatDollar from '../../core/utils/formatDollar';
 import { useCartItemContext } from '../providers/CartItemProvider';
 import App from '../../stores/App';
 
-const AddToCartButton = () => {
+interface IAddToCartButton {
+  cartItemToEditUID?: string;
+}
+
+const AddToCartButton: FC<IAddToCartButton> = ({ cartItemToEditUID }) => {
   const item = useCartItemContext();
 
   const navigation = useNavigation();
 
   const addToCart = () => {
+    if (cartItemToEditUID) {
+      App.ongoingOrder?.removeItemFromCart(cartItemToEditUID);
+    }
+
     if (item.item) {
       App.ongoingOrder?.addItemToCart(item);
     }
@@ -24,8 +32,8 @@ const AddToCartButton = () => {
   return (
     <ActionButton
       action={addToCart}
-      title="Add to Cart"
-      secondaryTitle={formatDollar(item.subtotal || '0')}
+      title={cartItemToEditUID ? 'Update' : 'Add to Cart'}
+      secondaryTitle={formatDollar(item.subtotal)}
     />
   );
 };

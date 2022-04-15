@@ -11,7 +11,11 @@ import PickUpOrderIcon from '../../components/@ui/icons/PickupOrderIcon';
 import SwitchOrderTypeIcon from '../../components/@ui/icons/SwitchOrderTypeIcon';
 import Box from '../../components/@ui/Box';
 
-const themedStyles = StyleService.create({
+interface IStyleProps {
+  small: boolean;
+}
+
+const themedStyles = StyleService.create((props: IStyleProps) => ({
   view: {
     width: '100%',
     backgroundColor: 'white',
@@ -19,7 +23,8 @@ const themedStyles = StyleService.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
+    paddingVertical: props.small ? 10 : 20,
+    paddingHorizontal: 20,
   },
   flex: {
     display: 'flex',
@@ -27,12 +32,17 @@ const themedStyles = StyleService.create({
     alignItems: 'center',
   },
   title: { marginLeft: 20 },
-});
+}));
 
-interface IOrderSchedlingHeaderProps {}
+interface IOrderSchedlingHeaderProps {
+  small?: boolean;
+}
 
-const OrderSchedlingHeader: FC<IOrderSchedlingHeaderProps> = () => {
-  const styles = useStyleSheet(themedStyles);
+const OrderSchedlingHeader: FC<IOrderSchedlingHeaderProps> = ({
+  small = false,
+}) => {
+  //@ts-ignore
+  const styles = useStyleSheet(themedStyles({ small }));
 
   const ongoingOrderType = App.ongoingOrder?.fulfillmentType!;
 
@@ -53,9 +63,13 @@ const OrderSchedlingHeader: FC<IOrderSchedlingHeaderProps> = () => {
           ) : (
             <></>
           )}
-          <Text style={styles.title} category="h1">
-            {ongoingOrderType[0].toUpperCase() + ongoingOrderType.substring(1)}{' '}
-            Order
+          <Text style={styles.title} category={small ? 'h4' : 'h1'}>
+            {small
+              ? ongoingOrderType[0].toUpperCase() +
+                ongoingOrderType.substring(1)
+              : ongoingOrderType[0].toUpperCase() +
+                ongoingOrderType.substring(1) +
+                ' Order'}
           </Text>
         </View>
 

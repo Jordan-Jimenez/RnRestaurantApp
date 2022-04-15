@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 
 import { TouchableOpacity, View } from 'react-native';
 import { Text, StyleService, useStyleSheet } from '@ui-kitten/components';
+
 import LoadingText from './LoadingText';
 
 const themedStyles = StyleService.create({
@@ -41,11 +42,11 @@ const ClickableInput: FC<IClickableInputProps> = ({
       <TouchableOpacity onPress={action} style={styles.container}>
         {icon && icon}
         <View style={styles.infoView}>
-          <Text category="s2" appearance="hint">
+          <Text category="p2" appearance="hint">
             {label}
           </Text>
 
-          <LoadingText loading={loading} width={loaderWidth} category="h6">
+          <LoadingText loading={loading} width={loaderWidth} category="p1">
             {value}
           </LoadingText>
         </View>

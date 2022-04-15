@@ -37,7 +37,7 @@ const MenuListItem: FC<IMenuListItemProps> = ({ item, loading }) => {
         <MenuItemImage loading={loading} imageId={item?.imageId} />
 
         <Box ml={20}>
-          <LoadingText loading={loading} category="h4">
+          <LoadingText loading={loading} category="h6">
             {item?.name}
           </LoadingText>
         </Box>

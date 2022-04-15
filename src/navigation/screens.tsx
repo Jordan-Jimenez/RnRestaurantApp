@@ -5,8 +5,9 @@ import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import Dashboard from '../screens/Dashboard';
 import NewOrderScreen from '../screens/NewOrderScreen';
 import StoreSelect from '../screens/StoreSelect';
-import SelectLocationHeader from '../containers/headers/SelectLocationHeader';
 import DetailedMenuItem from '../screens/DetailedMenuItem';
+import ReviewOrder from '../screens/ReviewOrder';
+import ModalHeader from '../containers/headers/ModalHeader';
 
 export default [
   { name: 'Dashboard', component: Dashboard, options: { headerShown: false } },
@@ -24,7 +25,7 @@ export default [
     component: StoreSelect,
     options: {
       presentation: 'modal',
-      header: () => <SelectLocationHeader />,
+      header: () => <ModalHeader title="Select pickup location" />,
     } as NativeStackNavigationOptions,
   },
   {
@@ -33,6 +34,14 @@ export default [
     options: {
       presentation: 'modal',
       headerShown: false,
+    } as NativeStackNavigationOptions,
+  },
+  {
+    name: 'ReviewOrder',
+    component: ReviewOrder,
+    options: {
+      presentation: 'modal',
+      header: () => <ModalHeader title="Review Order" />,
     } as NativeStackNavigationOptions,
   },
 ];

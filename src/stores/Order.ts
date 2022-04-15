@@ -52,8 +52,8 @@ export default class Order {
   }
 
   @action
-  public removeItemFromCart(itemId: string) {
-    const index = this.cart.findIndex(item => item.itemId === itemId);
+  public removeItemFromCart(uid: string) {
+    const index = this.cart.findIndex(item => item.uid === uid);
 
     this.cart.splice(index, 1);
   }
@@ -62,7 +62,7 @@ export default class Order {
   public get subtotal() {
     let subtotal: number = 0;
 
-    this.cart.forEach(item => (subtotal += parseFloat(item.subtotal)));
+    this.cart.forEach(item => (subtotal += item.subtotal));
 
     return subtotal;
   }

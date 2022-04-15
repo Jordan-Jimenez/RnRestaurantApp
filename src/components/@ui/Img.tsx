@@ -12,9 +12,15 @@ interface IImgProps {
   loading?: boolean;
 }
 
-const Img: FC<IImgProps> = ({ image, height, width, loading = false }) => {
+const Img: FC<IImgProps> = ({
+  image,
+  height,
+  width,
+  loading = false,
+  br = 0,
+}) => {
   //@ts-ignore
-  const styles = useStyleSheet(styleSheet({ height, width }));
+  const styles = useStyleSheet(styleSheet({ height, width, br }));
 
   return (
     <>
@@ -26,6 +32,7 @@ const Img: FC<IImgProps> = ({ image, height, width, loading = false }) => {
               uri: image,
             }}
             resizeMode="cover"
+            borderRadius={br}
           />
         </View>
       )}
@@ -55,6 +62,7 @@ const Img: FC<IImgProps> = ({ image, height, width, loading = false }) => {
 interface IStyleProps {
   height: number | string;
   width: number | string;
+  br: number;
 }
 
 const styleSheet = StyleService.create((props: IStyleProps) => ({
@@ -66,6 +74,7 @@ const styleSheet = StyleService.create((props: IStyleProps) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: props.br,
   },
   imageStyle: {
     height: '100%',

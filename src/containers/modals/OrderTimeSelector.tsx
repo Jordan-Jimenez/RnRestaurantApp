@@ -5,9 +5,9 @@ import { Picker } from '@react-native-picker/picker';
 import { StyleService, useStyleSheet } from '@ui-kitten/components';
 import { observer } from 'mobx-react-lite';
 
-import { useOrderTimeSelectorContext } from '../../containers/providers/OrderTimeSelectorContextProvider';
-import ActionButton from '../ActionButton';
-import ModalWithBackdrop from '../@ui/ModalWithBackdrop';
+import { useOrderTimeSelectorContext } from '../providers/OrderTimeSelectorContextProvider';
+import ActionButton from '../../components/ActionButton';
+import ModalWithBackdrop from '../../components/@ui/ModalWithBackdrop';
 import formatOrderTimeSlot from '../../core/utils/formatOrderTimeSlot';
 
 const themedStyles = StyleService.create({

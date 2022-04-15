@@ -15,7 +15,7 @@ const MenuItemOptions = () => {
   const cartItem = useCartItemContext();
 
   const { refetch, isFetching } = useQuery('getMenuItemOptions', async () => {
-    cartItem.setItemOptions(
+    cartItem.setOptions(
       await App.services.getMenuItemOptions(cartItem.optionIds),
     );
   });
@@ -41,7 +41,7 @@ const MenuItemOptions = () => {
 
       {!isFetching && (
         <Box>
-          {cartItem.itemOptions?.map(o => (
+          {cartItem.options?.map(o => (
             <View key={o.id}>
               <Box mb={20} mt={20}>
                 <Text category="h4">{`Choose a ${o.name}`}</Text>

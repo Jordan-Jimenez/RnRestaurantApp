@@ -2,9 +2,9 @@ import React from 'react';
 
 import { useQuery } from 'react-query';
 import { observer } from 'mobx-react-lite';
-import { Spinner } from '@ui-kitten/components';
-import { Alert, View } from 'react-native';
+import { Alert, Dimensions, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { StyleService, useStyleSheet, Spinner } from '@ui-kitten/components';
 
 import StoreLocation from '../../components/StoreLocation';
 import Box from '../../components/@ui/Box';
@@ -12,11 +12,29 @@ import App from '../../stores/App';
 import sortByDistance from '../../core/utils/sortStoresByDistance';
 import Store from '../../stores/Store';
 
+const themedStyles = StyleService.create({
+  loader: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: Dimensions.get('screen').height * 0.4,
+  },
+  listContainer: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 50,
+    paddingLeft: '10%',
+    paddingRight: '10%',
+  },
+});
+
 const StoreLocationList = () => {
   const { data, isFetching, refetch } = useQuery(
     'getLocations',
     async () => await App.services.getStoreLocations(),
   );
+
+  const styles = useStyleSheet(themedStyles);
 
   const stores = data?.filter(s => s).map(store => new Store(store));
 
@@ -26,7 +44,7 @@ const StoreLocationList = () => {
 
   if (isFetching) {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={styles.loader}>
         <Spinner />
       </View>
     );
@@ -34,19 +52,17 @@ const StoreLocationList = () => {
 
   if (!isFetching && data) {
     return (
-      <View style={{ flex: 1, alignItems: 'center', marginTop: 50 }}>
-        <View style={{ width: '80%' }}>
-          {sortedStores?.map((store, index) => (
-            <Box
+      <View style={styles.listContainer}>
+        {sortedStores?.map((store, index) => (
+          <Box
+            key={store.storeDetails.id || 'store' + index}
+            mt={index === 0 ? 0 : 40}>
+            <StoreLocation
               key={store.storeDetails.id || 'store' + index}
-              mt={index === 0 ? 0 : 40}>
-              <StoreLocation
-                key={store.storeDetails.id || 'store' + index}
-                store={store}
-              />
-            </Box>
-          ))}
-        </View>
+              store={store}
+            />
+          </Box>
+        ))}
       </View>
     );
   }

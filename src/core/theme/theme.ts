@@ -1,7 +1,7 @@
 export const theme = {
   'text-basic-color': '#000',
   'text-alternate-color': '#00B0C8',
-  'text-control-color': '#EFEFEF',
+  'text-control-color': '#FFF',
   'text-hint-color': '#ADADAD',
   'text-info-color': '#DFDFDF',
   'text-warning-color': '#EFD4A1',

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 
 import ClickableInput from '../../components/@ui/ClickableInput';
 import ClockIcon from '../../components/@ui/icons/ClockIcon';
-import DateTimeSelector from '../../components/order/OrderTimeSelector';
+import DateTimeSelector from '../modals/OrderTimeSelector';
 import App from '../../stores/App';
 import formatOrderTimeSlot from '../../core/utils/formatOrderTimeSlot';
 import Store from '../../stores/Store';

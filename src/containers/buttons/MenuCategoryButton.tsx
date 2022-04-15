@@ -24,14 +24,14 @@ const MenuCategoryButton: FC<IMenuCategoryButtonProps> = ({
     <TextButton
       loadingTitle={loading}
       message={item?.name || ''}
-      category="h4"
+      category="h5"
       status={
         menu.selectedCategory
           ? menu.selectedCategory?.name === item?.name
-            ? 'warning'
+            ? 'danger'
             : 'info'
           : menu.categories?.[0].name === item?.name
-          ? 'warning'
+          ? 'danger'
           : 'info'
       }
       onPress={selectCategory}

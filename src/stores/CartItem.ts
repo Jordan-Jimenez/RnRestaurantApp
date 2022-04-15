@@ -1,22 +1,22 @@
 import { action, computed, makeAutoObservable, observable } from 'mobx';
+import uuid from 'react-native-uuid';
 
 export default class CartItem {
-  constructor(public item?: MenuItem) {
+  constructor(public item?: MenuItem, private itemToEdit?: CartItem) {
     makeAutoObservable(this);
+
+    this.uid = uuid.v4().toString();
+
+    if (this.itemToEdit) {
+      this.selectedOptionValues = JSON.parse(
+        this.itemToEdit.variationOptionValues,
+      );
+
+      this.quantity = this.itemToEdit.quantity;
+    }
   }
 
-  @action
-  public setItem(item?: MenuItem) {
-    this.item = item;
-  }
-
-  @observable
-  public itemId?: string;
-
-  @action
-  public setItemId(id?: string) {
-    this.itemId = id;
-  }
+  public uid: string;
 
   @observable
   public quantity: number = 1;
@@ -27,35 +27,19 @@ export default class CartItem {
   }
 
   @observable
-  public notes?: string;
+  public options?: ItemOption[];
 
   @action
-  public setNotes(notes: string) {
-    this.notes = notes;
+  public setOptions(options?: ItemOption[]) {
+    this.options = options;
   }
 
   @observable
-  public itemOptions?: ItemOption[];
+  public selectedOptionValues?: { [key: string]: string };
 
   @action
-  public setItemOptions(options?: ItemOption[]) {
-    this.itemOptions = options;
-
-    let selectedOptions: { [key: string]: string } = {};
-
-    options?.forEach(
-      option => (selectedOptions[option.id] = option.values[0].id),
-    );
-
-    this.updateSelectedItemOptions(selectedOptions);
-  }
-
-  @observable
-  public selectedItemOptions: { [key: string]: string } = {};
-
-  @action
-  public updateSelectedItemOptions(selectedOptions: any) {
-    this.selectedItemOptions = selectedOptions;
+  public setSelectedOptionValues(selectedValues: any) {
+    this.selectedOptionValues = selectedValues;
   }
 
   @computed
@@ -70,12 +54,41 @@ export default class CartItem {
   }
 
   @computed
-  public get selectedVariation() {
-    const selectedOptions = Object.entries(this.selectedItemOptions).map(
-      option => {
-        return { itemOptionId: option[0], itemOptionValueId: option[1] };
-      },
+  private get defaultVariationOptionValues() {
+    let selectedOptions: { [key: string]: string } = {};
+
+    this.options?.forEach(
+      option => (selectedOptions[option.id] = option.values[0].id),
     );
+
+    return selectedOptions;
+  }
+
+  @computed
+  public get variationOptionValues() {
+    if (this.selectedOptionValues) {
+      return JSON.stringify(
+        Object.assign(
+          this.defaultVariationOptionValues,
+          this.selectedOptionValues,
+        ),
+      );
+    }
+
+    if (this.options) {
+      return JSON.stringify(this.defaultVariationOptionValues);
+    }
+
+    return '{}';
+  }
+
+  @computed
+  public get variation() {
+    const obj = JSON.parse(this.variationOptionValues);
+
+    const selectedOptions = Object.entries(obj).map(option => {
+      return { itemOptionId: option[0], itemOptionValueId: option[1] };
+    });
 
     return this.item?.variations?.find(v => {
       const hasAllOptions = selectedOptions.map(option => {
@@ -92,8 +105,6 @@ export default class CartItem {
 
   @computed
   public get subtotal() {
-    return (
-      parseFloat(this.selectedVariation?.price || '0') * this.quantity
-    ).toString();
+    return parseFloat(this.variation?.price || '0') * this.quantity;
   }
 }

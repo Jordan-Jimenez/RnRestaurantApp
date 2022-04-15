@@ -48,8 +48,8 @@ const MenuItemOptionValue: FC<IMenuItemOptionValueProps> = ({
   const cartItem = useCartItemContext();
 
   const onChange = () => {
-    cartItem.updateSelectedItemOptions({
-      ...cartItem.selectedItemOptions,
+    cartItem.setSelectedOptionValues({
+      ...cartItem.selectedOptionValues,
       [optionId || '']: optionValue?.id,
     });
   };
@@ -71,7 +71,7 @@ const MenuItemOptionValue: FC<IMenuItemOptionValueProps> = ({
                 onPress={onChange}
                 onChange={onChange}
                 checked={
-                  cartItem.selectedItemOptions[optionId || ''] ===
+                  JSON.parse(cartItem.variationOptionValues)[optionId || ''] ===
                   optionValue?.id
                 }
               />

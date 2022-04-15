@@ -10,6 +10,7 @@ interface IMenuItemImageProps {
   loading?: boolean;
   height?: number;
   width?: number;
+  br?: number;
 }
 
 const MenuItemImage: FC<IMenuItemImageProps> = ({
@@ -17,6 +18,7 @@ const MenuItemImage: FC<IMenuItemImageProps> = ({
   loading = false,
   height = 100,
   width = 100,
+  br = 0,
 }) => {
   const { data, isFetching } = useQuery(`getImage${imageId}`, async () => {
     return await App.services.getMenuItemImage(imageId);
@@ -28,6 +30,7 @@ const MenuItemImage: FC<IMenuItemImageProps> = ({
       height={height}
       width={width}
       loading={loading || isFetching}
+      br={br}
     />
   );
 };

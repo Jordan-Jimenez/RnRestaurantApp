@@ -2,8 +2,11 @@ import React, { FC } from 'react';
 
 import { Text, StyleService, useStyleSheet } from '@ui-kitten/components';
 import { View } from 'react-native';
+import { observer } from 'mobx-react-lite';
 
 import formatDollar from '../../core/utils/formatDollar';
+import Box from '../@ui/Box';
+import App from '../../stores/App';
 
 const themedStyles = StyleService.create({
   container: {
@@ -17,32 +20,83 @@ const themedStyles = StyleService.create({
     fontWeight: '800',
   },
   price: {
-    flex: 1,
+    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    width: '100%',
+  },
+  total: {
+    padding: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  totalText: {
+    fontWeight: '800',
   },
 });
 
 interface IPriceBreakdownProps {
-  subtotal?: number;
+  subtotalOnly?: boolean;
 }
 
-const PriceBreakdown: FC<IPriceBreakdownProps> = ({ subtotal }) => {
+const PriceBreakdown: FC<IPriceBreakdownProps> = ({ subtotalOnly = false }) => {
   const styles = useStyleSheet(themedStyles);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.price}>
-        <Text style={styles.text} category={'h5'}>
-          Subtotal:
-        </Text>
+    <>
+      <View style={styles.container}>
+        <View style={styles.price}>
+          <Text style={styles.text} category={'h5'}>
+            Subtotal:
+          </Text>
 
-        <Text style={styles.text} category={'h5'}>
-          {formatDollar(subtotal)}
-        </Text>
+          <Text style={styles.text} category={'h5'}>
+            {formatDollar(App.ongoingOrder?.subtotal)}
+          </Text>
+        </View>
+
+        {!subtotalOnly && (
+          <>
+            <Box mt={10} mb={10} width={'100%'}>
+              <View style={styles.price}>
+                <Text style={styles.text} category={'h5'}>
+                  Tip:
+                </Text>
+
+                <Text style={styles.text} category={'h5'}>
+                  {formatDollar(App.ongoingOrder?.tip)}
+                </Text>
+              </View>
+            </Box>
+
+            <View style={styles.price}>
+              <Text style={styles.text} category={'h5'}>
+                Taxes:
+              </Text>
+
+              <Text style={styles.text} category={'h5'}>
+                {formatDollar(App.ongoingOrder?.taxes)}
+              </Text>
+            </View>
+          </>
+        )}
       </View>
-    </View>
+
+      {!subtotalOnly && (
+        <View style={styles.total}>
+          <Text style={styles.totalText} category={'h5'}>
+            Total:
+          </Text>
+
+          <Text style={styles.totalText} category={'h5'}>
+            {formatDollar(App.ongoingOrder?.total)}
+          </Text>
+        </View>
+      )}
+    </>
   );
 };
 
-export default PriceBreakdown;
+export default observer(PriceBreakdown);

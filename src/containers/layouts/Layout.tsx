@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 
 import { ScrollView, View } from 'react-native';
-import { Layout } from '@ui-kitten/components/ui/layout/layout.component';
+import { Layout as UIKLayout } from '@ui-kitten/components/ui/layout/layout.component';
 import {
   StyleService,
   useStyleSheet,
 } from '@ui-kitten/components/theme/style/style.service';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-interface IBasicLayoutProps {
+interface ILayoutProps {
   actionButton?: JSX.Element;
   noSafeArea?: boolean;
   centerContent?: boolean;
@@ -16,7 +16,7 @@ interface IBasicLayoutProps {
   noPadding?: boolean;
 }
 
-const BasicLayout: FC<IBasicLayoutProps> = ({
+const Layout: FC<ILayoutProps> = ({
   children,
   actionButton,
   noSafeArea = false,
@@ -24,11 +24,13 @@ const BasicLayout: FC<IBasicLayoutProps> = ({
   stickyHeaderIndicies,
   noPadding = false,
 }) => {
-  //@ts-ignore
-  const classes = useStyleSheet(themedStyles({ centerContent, noPadding }));
+  const classes = useStyleSheet(
+    //@ts-ignore
+    themedStyles({ centerContent, noPadding }),
+  );
 
   return (
-    <Layout>
+    <UIKLayout>
       {!noSafeArea ? (
         <ScrollView
           style={classes.scrollView}
@@ -48,7 +50,7 @@ const BasicLayout: FC<IBasicLayoutProps> = ({
       )}
 
       {actionButton}
-    </Layout>
+    </UIKLayout>
   );
 };
 
@@ -76,4 +78,4 @@ const themedStyles = StyleService.create((props: IStyleProps) => ({
   },
 }));
 
-export default BasicLayout;
+export default Layout;

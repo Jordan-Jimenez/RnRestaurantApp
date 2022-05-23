@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react-lite';
 
-import BasicLayout from '../containers/layouts/BasicLayout';
+import Layout from '../containers/layouts/Layout';
 import StoreLocationList from '../containers/lists/StoreLocationList';
 import App from '../stores/App';
 
@@ -28,11 +28,11 @@ const OrderLocationSelect = ({}: StoreSelectProps) => {
   }, []);
 
   return (
-    <BasicLayout noSafeArea>
+    <Layout noSafeArea>
       {/* button to reprompt the user to enable location services if they have not already */}
 
       <StoreLocationList />
-    </BasicLayout>
+    </Layout>
   );
 };
 

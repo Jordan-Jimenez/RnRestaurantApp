@@ -1,18 +1,21 @@
 import { mapping } from '@eva-design/eva';
+import { PixelRatio } from 'react-native';
+
+const fontScale = PixelRatio.getFontScale();
 
 export const FONT_SIZES = {
-  h1: 30,
-  h2: 26,
-  h3: 24,
-  h4: 22,
-  h5: 20,
-  h6: 18,
-  s1: 18,
-  s2: 18,
-  p1: 16,
-  p2: 14,
-  c1: 12,
-  c2: 12,
+  h1: 26 / fontScale,
+  h2: 22 / fontScale,
+  h3: 20 / fontScale,
+  h4: 18 / fontScale,
+  h5: 17 / fontScale,
+  h6: 16 / fontScale,
+  s1: 14 / fontScale,
+  s2: 12 / fontScale,
+  p1: 14 / fontScale,
+  p2: 12 / fontScale,
+  c1: 12 / fontScale,
+  c2: 12 / fontScale,
 } as { [key: string]: number };
 
 export default {

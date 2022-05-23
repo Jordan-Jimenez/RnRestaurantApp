@@ -84,12 +84,7 @@ const DateTimeSelector: FC<DateTimeSelectorProps> = ({
         </View>
       </View>
 
-      <ActionButton
-        title="Done"
-        absolute={false}
-        height={100}
-        action={setTimeAndClose}
-      />
+      <ActionButton title="Done" absolute={false} action={setTimeAndClose} />
     </ModalWithBackdrop>
   );
 };

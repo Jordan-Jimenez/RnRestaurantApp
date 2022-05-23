@@ -8,6 +8,7 @@ import StoreSelect from '../screens/StoreSelect';
 import DetailedMenuItem from '../screens/DetailedMenuItem';
 import ReviewOrder from '../screens/ReviewOrder';
 import ModalHeader from '../containers/headers/ModalHeader';
+import ConfirmOrder from '../screens/ConfirmOrder';
 
 export default [
   { name: 'Dashboard', component: Dashboard, options: { headerShown: false } },
@@ -42,6 +43,17 @@ export default [
     options: {
       presentation: 'modal',
       header: () => <ModalHeader title="Review Order" />,
+    } as NativeStackNavigationOptions,
+  },
+  {
+    name: 'ConfirmOrder',
+    component: ConfirmOrder,
+    options: {
+      contentStyle: {
+        backgroundColor: 'transparent',
+      },
+      presentation: 'modal',
+      headerShown: false,
     } as NativeStackNavigationOptions,
   },
 ];

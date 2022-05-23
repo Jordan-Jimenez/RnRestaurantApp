@@ -60,6 +60,7 @@ interface IBoxProps {
   borderBottom?: boolean;
   width?: '100%' | 'auto' | number;
   overflow?: 'visible' | 'hidden' | 'scroll' | undefined;
+  children?: React.ReactNode;
 }
 
 const Box: FC<IBoxProps> = ({

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { Layout } from '@ui-kitten/components';
+import { View } from 'react-native';
 
 import Box from '../../components/@ui/Box';
 import BasicTitleHeader from '../../components/@ui/BasicTitleHeader';
@@ -11,11 +11,16 @@ interface IModalHeaderProps {
 
 const ModalHeader: FC<IModalHeaderProps> = ({ title }) => {
   return (
-    <Layout>
-      <Box pt={30} pb={30} borderBottom>
+    <View
+      style={{
+        backgroundColor: 'white',
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+      }}>
+      <Box pt={20} pb={20} borderBottom>
         <BasicTitleHeader title={title} />
       </Box>
-    </Layout>
+    </View>
   );
 };
 

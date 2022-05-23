@@ -47,7 +47,7 @@ const ActionButton: FC<IActionButtonProps> = ({
   title,
   secondaryTitle,
   absolute = true,
-  height = 100,
+  height = 85,
 }) => {
   const styles = useStyleSheet(
     //@ts-ignore

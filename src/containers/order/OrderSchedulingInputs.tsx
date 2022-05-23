@@ -46,16 +46,20 @@ const OrderSchedulingInputs = () => {
       <View style={styles.container}>
         <PickupTimeSelector loading={isFetching} store={store!} />
 
-        <Box mt={10} />
+        {App.ongoingOrder?.fulfillmentType === 'delivery' && (
+          <>
+            <Box mt={10} />
 
-        <ClickableInput
-          loaderWidth={175}
-          loading={isFetching}
-          action={openLocationsList}
-          icon={<OrderLocationIcon />}
-          label="Where"
-          value={App.ongoingOrder?.store?.storeDetails.streetAddress}
-        />
+            <ClickableInput
+              loaderWidth={175}
+              loading={isFetching}
+              action={openLocationsList}
+              icon={<OrderLocationIcon />}
+              label="Where"
+              value={App.ongoingOrder?.store?.storeDetails.streetAddress}
+            />
+          </>
+        )}
       </View>
     </>
   );

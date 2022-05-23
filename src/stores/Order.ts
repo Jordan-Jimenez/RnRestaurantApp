@@ -22,6 +22,9 @@ export default class Order {
   };
 
   @observable
+  public customTip: boolean = false;
+
+  @observable
   public tip: number = 0;
 
   @observable
@@ -40,6 +43,11 @@ export default class Order {
   @action
   public setFulFillmentTimeSlot(timeSlot?: { start: DateTime; end: DateTime }) {
     this.fulfillmentTimeSlot = timeSlot;
+  }
+
+  @action
+  public setCustomTip(customTip: boolean) {
+    this.customTip = customTip;
   }
 
   @action
@@ -65,5 +73,15 @@ export default class Order {
     this.cart.forEach(item => (subtotal += item.subtotal));
 
     return subtotal;
+  }
+
+  @computed
+  public get taxes() {
+    return this.subtotal * 0.085;
+  }
+
+  @computed
+  public get total() {
+    return this.subtotal + this.tip + this.taxes;
   }
 }

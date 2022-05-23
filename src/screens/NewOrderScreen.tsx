@@ -2,7 +2,7 @@ import React from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import Layout from '../containers/layouts/BasicLayout';
+import Layout from '../containers/layouts/Layout';
 import OrderSchedulingInputs from '../containers/order/OrderSchedulingInputs';
 import ViewCartButton from '../containers/buttons/ViewCartButton';
 import OrderSchedlingHeader from '../containers/headers/OrderSchedlingHeader';

@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { observer } from 'mobx-react-lite';
 import { View } from 'react-native';
+import { observer } from 'mobx-react-lite';
 import { StyleService, useStyleSheet } from '@ui-kitten/components';
+import { useNavigation } from '@react-navigation/native';
 
 import Box from '../../components/@ui/Box';
 import ActionButton from '../../components/ActionButton';
 import App from '../../stores/App';
-import OrderPaymentModal from '../modals/OrderPaymentModal';
 import OrderSubtotal from '../OrderSubtotal';
 
 const themedStyles = StyleService.create({
@@ -19,10 +19,10 @@ const themedStyles = StyleService.create({
 });
 
 const ContinueToPaymentButton = () => {
-  const [open, setOpen] = useState(false);
+  const navigation = useNavigation();
 
-  const openPaymentModal = () => {
-    setOpen(!open);
+  const navigateToConfirmOrder = () => {
+    navigation.navigate('ConfirmOrder');
   };
 
   const styles = useStyleSheet(themedStyles);
@@ -37,13 +37,11 @@ const ContinueToPaymentButton = () => {
 
           <ActionButton
             absolute={false}
-            action={openPaymentModal}
+            action={navigateToConfirmOrder}
             title="Continue"
           />
         </>
       )}
-
-      <OrderPaymentModal open={open} setOpen={openPaymentModal} />
     </View>
   );
 };

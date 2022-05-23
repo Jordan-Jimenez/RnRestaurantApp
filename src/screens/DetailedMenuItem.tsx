@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useQuery } from 'react-query';
 
-import BasicLayout from '../containers/layouts/BasicLayout';
+import Layout from '../containers/layouts/Layout';
 import App from '../stores/App';
 import CartItemProvider from '../containers/providers/CartItemProvider';
 import LoadingText from '../components/@ui/LoadingText';
@@ -39,7 +39,7 @@ const DetailedMenuItem = ({ route }: DetailedMenuItemProps) => {
 
   return (
     <CartItemProvider cartItemToEdit={route.params.cartItemToEdit} item={data}>
-      <BasicLayout
+      <Layout
         centerContent
         actionButton={
           <AddToCartButton
@@ -77,7 +77,7 @@ const DetailedMenuItem = ({ route }: DetailedMenuItemProps) => {
         <MenuItemOptions />
 
         <Box pb={200} />
-      </BasicLayout>
+      </Layout>
     </CartItemProvider>
   );
 };

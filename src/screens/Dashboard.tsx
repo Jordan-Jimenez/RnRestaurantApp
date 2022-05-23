@@ -3,7 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { StyleService, useStyleSheet } from '@ui-kitten/components';
 
-import BasicLayout from '../containers/layouts/BasicLayout';
+import Layout from '../containers/layouts/Layout';
 import Header from '../containers/headers/DashboardHeader';
 import DashboardOrderActions from '../containers/order/navigation/DashboardOrderActions';
 import Box from '../components/@ui/Box';
@@ -22,7 +22,7 @@ const Dashboard = () => {
   const styles = useStyleSheet(themedStyles);
 
   return (
-    <BasicLayout noPadding>
+    <Layout noPadding>
       <View style={styles.container}>
         <Header />
 
@@ -32,7 +32,7 @@ const Dashboard = () => {
 
         <DashboardOrderActions />
       </View>
-    </BasicLayout>
+    </Layout>
   );
 };
 
